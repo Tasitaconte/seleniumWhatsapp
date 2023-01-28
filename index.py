@@ -20,6 +20,7 @@ rutaMsmdos = '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/di
 usuario = '//*[@id="pane-side"]/div[1]/div/div/div[1]/div/div/div/div[2]/div[1]/div[1]/span'
 
 driver = webdriver.Chrome(PATH)
+canvaWhat = '//*[@id="app"]/div/div/div[3]/div[1]/div/div/div[2]/div/canvas'
 
 
 def seleccionChat(nombre: str):
@@ -46,11 +47,23 @@ def enviarMensaje(mensaje: str):
     boxChat.send_keys(Keys.ENTER)
 
 
+def inicioWhat():
+    try:
+        canva = driver.find_element(By.XPATH, canvaWhat)
+    except:
+        return False
+    return True
+
+
 def main():
 
     driver.get(URL)
+    confirmacion = True
 
-    time.sleep(15)
+    while confirmacion:
+        confirmacion = inicioWhat()
+        if confirmacion == False:
+            break
 
     while (True):
         print("digite dato a registrar: ")
