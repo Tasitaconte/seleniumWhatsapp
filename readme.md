@@ -1,5 +1,3 @@
-s readme.md desaparecerían.
-
 ## Installation
 ***
 A little intro about the installation. 
