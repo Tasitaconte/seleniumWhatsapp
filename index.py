@@ -49,39 +49,41 @@ def enviarMensaje(mensaje: str):
 
 def inicioWhat():
     try:
-        canva = driver.find_element(By.XPATH, canvaWhat)
+        canva = driver.find_element(By.TAG_NAME, 'canvas')
     except:
-        return False
-    return True
+        return True
+    return False
 
 
 def main():
 
     driver.get(URL)
-    confirmacion = True
-
-    while confirmacion:
-        confirmacion = inicioWhat()
-        if confirmacion == False:
-            break
-
+    print("Escane QR")
+    time.sleep(5)
     while (True):
-        print("digite dato a registrar: ")
-        registrar = input()
+        confirmacion = inicioWhat()
+        if (confirmacion):
+            print("Digite nombre del contacto: ")
+            registrar = input()
 
-        print("mensaje a enviar")
-        mensaje = input()
+            print("Escriba su mensaje")
+            mensaje = input()
+            
+            print("cuantas veces vas a mandar el mensaje")
+            num = int(input())
 
-        if (seleccionBusqueda(registrar)):
-            enviarMensaje(mensaje)
-            print("encontrado")
-        else:
-            print("contacto no encontrado")
+            if (seleccionBusqueda(registrar)):
+                for i in range(num):
+                    enviarMensaje(mensaje)
+                print("Mensaje enviado")
+            else:
+                print("contacto no encontrado")
 
-        print("Quiere salir? Y / sino pulse cualquier tecla")
-        opcion = input()
-        if (opcion == 'y' or opcion == 'Y'):
-            return False
+            print("Quiere salir? Y / sino pulse cualquier tecla")
+            opcion = input()
+            if (opcion == 'y' or opcion == 'Y'):
+                return False
+
 
     driver.close()
 
